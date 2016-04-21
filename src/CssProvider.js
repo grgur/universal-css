@@ -65,5 +65,5 @@ export function concatCssServer() {
 }
 
 export function inlineCss(html) {
-  return html.replace(/(<head\b[^>]*>)/i, `$1 ${concatCssServer()}`);
+  return html.replace(/(<head\b[^>]*>)/i, `$1 <style>${concatCssServer()}</style>`);
 }
