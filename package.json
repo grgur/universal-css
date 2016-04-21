@@ -1,6 +1,6 @@
 {
   "name": "universal-css",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Universal css/scss/less loader for critical path css in universal/isomorphic React apps",
   "main": "lib/index.js",
   "jsnext:main": "es6/index",
