@@ -1,15 +1,52 @@
 {
   "name": "universal-css",
   "version": "1.0.0",
-  "description": "",
+  "description": "Universal css/scss/less loader for critical path css in universal/isomorphic React apps",
   "main": "index.js",
+  "jsnext:main": "es6/index",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/grgur/universal-css.git"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "npm run build-cjs && npm run build-es6",
+    "build-es6": "rimraf es6 && babel ./src -d es6 --presets react,es2015-native-modules,stage-0 --no-babelrc",
+    "build-cjs": "rimraf lib && babel ./src -d lib"
   },
   "author": "Grgur Grisogono",
   "license": "MIT",
+   "keywords": [
+    "webpack",
+    "webpack-loader",
+    "webpack loader",
+    "loader",
+    "critical path",
+    "style-loader",
+    "style loader",
+    "react",
+    "reactjs",
+    "isomorphic",
+    "universal",
+    "css",
+    "scss",
+    "style",
+    "styles"
+  ],
   "peerDependencies": {
     "react": "^0.14.0",
     "webpack": "^1.12.0"
+  },
+  "dependencies": {
+    "babel-runtime": "^6.6.1",
+    "loader-utils": "^0.2.14"
+  },
+  "devDependencies": {
+    "babel": "^6.5.2",
+    "babel-cli": "^6.6.5",
+    "babel-preset-es2015": "^6.6.0",
+    "babel-preset-es2015-native-modules": "^6.6.0",
+    "babel-preset-react": "^6.5.0",
+    "babel-preset-stage-0": "^6.5.0",
+    "rimraf": "^2.5.2"
   }
 }
