@@ -8,9 +8,12 @@ module.exports.pitch = function pitch(remainingRequest) {
   }
 
   const insertCssPath = path.join(__dirname, './insertCss.js');
+  const strRemainingRequest = stringifyRequest(this, `!!${remainingRequest}`);
+  const strInsertCssPath = stringifyRequest(this, `!${insertCssPath}`);
+
   let output = `
-    var content = require(${stringifyRequest(this, `!!${remainingRequest}`)});
-    var insertCss = require(${stringifyRequest(this, `!${insertCssPath}`)});
+    var content = require(${strRemainingRequest});
+    var insertCss = require(${strInsertCssPath});
 
     if (typeof content === 'string') {
       content = [[module.id, content, '']];
@@ -22,13 +25,10 @@ module.exports.pitch = function pitch(remainingRequest) {
   `;
 
   output += this.debug ? `
-    // Hot Module Replacement
-    // https://webpack.github.io/docs/hot-module-replacement
-    // Only activated in browser context
-    if (module.hot && typeof window !== 'undefined' && window.document) {
+    if (module.hot && typeof window === 'object' && window.document) {
       var removeCss = function() {};
-      module.hot.accept(${stringifyRequest(this, `!!${remainingRequest}`)}, function() {
-        content = require(${stringifyRequest(this, `!!${remainingRequest}`)});
+      module.hot.accept(${strRemainingRequest}, function() {
+        content = require(${strRemainingRequest});
 
         if (typeof content === 'string') {
           content = [[module.id, content, '']];
